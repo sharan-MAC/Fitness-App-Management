@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Followers - Level Up AI</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #121212; color: #e0e0e0; margin: 0; padding: 0; }
+        .container { max-width: 600px; margin: 50px auto; background-color: #1f1f1f; padding: 30px; border-radius: 12px; }
+        h2 { color: #00e676; text-align: center; }
+        .follow-form { background: #2c2c2c; padding: 20px; border-radius: 8px; margin-bottom: 30px; }
+        input, button { width: 100%; padding: 12px; margin-bottom: 10px; border-radius: 6px; border: 1px solid #444; background: #121212; color: white; box-sizing: border-box; }
+        button { background: #00e676; color: black; font-weight: bold; border: none; cursor: pointer; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { padding: 12px; border: 1px solid #333; text-align: left; }
+        th { color: #00e676; }
+        .back-link { display: block; text-align: center; margin-top: 20px; color: #00e676; text-decoration: none; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>🤝 Network & Followers</h2>
+    
+    <div class="follow-form">
+        <h3>Follow an Athlete</h3>
+        <form action="/followers" method="POST">
+            <input type="number" name="follower_id" placeholder="Your User ID (Follower)" required>
+            <input type="number" name="user_id" placeholder="Athlete ID to Follow" required>
+            <button type="submit">Follow</button>
+        </form>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Follower</th>
+                <th>Following</th>
+                <th>Date</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for f in followers %}
+            <tr>
+                <td>{{ f.follower_name }}</td>
+                <td>{{ f.user_being_followed }}</td>
+                <td>{{ f.followed_at }}</td>
+                <td>
+                    <a href="/follower_delete/{{ f.follow_id }}" style="color: #f44336; text-decoration: none;">🗑 Unfollow</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+    <a href="/" class="back-link">⬅ Back to Dashboard</a>
+</div>
+
+</body>
+</html>

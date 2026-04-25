@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Recommendations - Level Up AI</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #121212; color: #e0e0e0; margin: 0; padding: 0; }
+        .container { max-width: 800px; margin: 50px auto; background-color: #1f1f1f; padding: 30px; border-radius: 12px; }
+        h2 { color: #00e676; text-align: center; }
+        .form-group { background: #2c2c2c; padding: 20px; border-radius: 8px; margin-bottom: 30px; }
+        input, select, textarea, button { width: 100%; padding: 10px; margin-bottom: 10px; border-radius: 6px; border: 1px solid #444; background: #121212; color: white; box-sizing: border-box; }
+        button { background: #00e676; color: black; font-weight: bold; border: none; cursor: pointer; }
+        .rec-card { background: #2c2c2c; padding: 20px; border-radius: 8px; margin-bottom: 15px; border-top: 4px solid #00e676; }
+        .category { display: inline-block; padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; font-weight: bold; margin-bottom: 10px; }
+        .category-exercise { background: #1b5e20; color: #a5d6a7; }
+        .category-diet { background: #e65100; color: #ffcc80; }
+        .category-recovery { background: #01579b; color: #81d4fa; }
+        .back-link { display: block; text-align: center; margin-top: 20px; color: #00e676; text-decoration: none; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>🤖 AI Fitness Recommendations</h2>
+    
+    <div class="form-group">
+        <h3>Store New AI Tip</h3>
+        <form action="/recommendations" method="POST">
+            <input type="number" name="user_id" placeholder="User ID" required>
+            <select name="category">
+                <option value="exercise">Exercise</option>
+                <option value="diet">Diet</option>
+                <option value="recovery">Recovery</option>
+            </select>
+            <textarea name="ai_tip" placeholder="AI Generated Tip Details..." required></textarea>
+            <button type="submit">Save Tip</button>
+        </form>
+    </div>
+
+    <div class="list">
+        {% for rec in recommendations %}
+        <div class="rec-card">
+            <span class="category category-{{ rec.category }}">{{ rec.category.upper() }}</span>
+            <div style="color: #00e676; font-weight: bold; margin-bottom: 5px;">For Athlete @{{ rec.username }}</div>
+            <p>{{ rec.ai_tip }}</p>
+            <div style="font-size: 0.8rem; color: #666;">Generated on: {{ rec.created_at }}</div>
+        </div>
+        {% endfor %}
+    </div>
+    
+    <a href="/" class="back-link">⬅ Back to Dashboard</a>
+</div>
+
+</body>
+</html>

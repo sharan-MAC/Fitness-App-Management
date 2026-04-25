@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Social Posts - Level Up AI</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #121212; color: #e0e0e0; margin: 0; padding: 0; }
+        .container { max-width: 700px; margin: 50px auto; background-color: #1f1f1f; padding: 30px; border-radius: 12px; }
+        h2 { color: #00e676; text-align: center; }
+        .post-form { background: #2c2c2c; padding: 20px; border-radius: 8px; margin-bottom: 30px; }
+        textarea { width: 100%; height: 100px; padding: 10px; border-radius: 6px; border: 1px solid #444; background: #121212; color: white; margin-bottom: 10px; }
+        .post { background: #2c2c2c; padding: 20px; border-radius: 8px; margin-bottom: 15px; border-left: 5px solid #00e676; }
+        .post-header { display: flex; justify-content: space-between; margin-bottom: 10px; color: #00e676; font-weight: bold; }
+        .post-content { line-height: 1.6; }
+        .post-footer { margin-top: 10px; font-size: 0.8rem; color: #888; }
+        button { background: #00e676; color: black; font-weight: bold; cursor: pointer; border: none; padding: 10px 20px; border-radius: 6px; }
+        .back-link { display: block; text-align: center; margin-top: 20px; color: #00e676; text-decoration: none; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>📱 Social Feed</h2>
+    
+    <div class="post-form">
+        <h3>Create Post</h3>
+        <form action="/posts" method="POST">
+            <input type="number" name="user_id" placeholder="User ID" required style="padding: 10px; margin-bottom: 10px; border-radius: 6px; border: 1px solid #444; background: #121212; color: white; display: block; width: 100px;">
+            <textarea name="content" placeholder="What's on your mind? #fitness" required></textarea>
+            <button type="submit">Post Status</button>
+        </form>
+    </div>
+
+    <div class="feed">
+        {% for post in posts %}
+        <div class="post">
+            <div class="post-header">
+                <span>@{{ post.username }}</span>
+                <div>
+                    <span>❤️ {{ post.likes }}</span>
+                    <a href="/post_delete/{{ post.post_id }}" onclick="return confirm('Delete post?')" style="color: #f44336; margin-left: 15px; text-decoration: none;">🗑</a>
+                </div>
+            </div>
+            <div class="post-content">{{ post.content }}</div>
+            <div class="post-footer">{{ post.created_at }}</div>
+        </div>
+        {% endfor %}
+    </div>
+    
+    <a href="/" class="back-link">⬅ Back to Dashboard</a>
+</div>
+
+</body>
+</html>
